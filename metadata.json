@@ -1,0 +1,8 @@
+{
+  "name": "NubeCircle",
+  "description": "Espacio web de estudio y enfoque con tu compañera nube, temporizador Pomodoro, tareas por materia y círculos virtuales de estudio.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

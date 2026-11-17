@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+  }
+}
+
+@keyframes cloud-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes steam-rise {
+  0% {
+    transform: translateY(2px) scaleX(1);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translateY(-4px) scaleX(1.06);
+    opacity: 0.65;
+  }
+  100% {
+    transform: translateY(-9px) scaleX(0.96);
+    opacity: 0;
+  }
+}
+
+.animate-cloud-float {
+  animation: cloud-float 4.5s ease-in-out infinite;
+}
+
+.animate-steam {
+  animation: steam-rise 2.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-cloud-float,
+  .animate-steam {
+    animation: none !important;
+  }
+}
