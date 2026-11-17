@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
@@ -7,9 +8,12 @@
 }
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
+  html,
+  body,
+  #root {
+    height: 100%;
     font-family: var(--font-sans);
+    -webkit-tap-highlight-color: transparent;
   }
 
   h1, h2, h3, h4 {
@@ -22,7 +26,7 @@
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-6px);
+    transform: translateY(-5px);
   }
 }
 
@@ -49,10 +53,29 @@
   animation: steam-rise 2.8s ease-in-out infinite;
 }
 
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* Clean thin scrollbar inside mobile shell */
+.app-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+
+.app-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.app-scroll::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.35);
+  border-radius: 9999px;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
   .animate-cloud-float,
   .animate-steam {
     animation: none !important;

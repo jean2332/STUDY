@@ -1,3 +1,10 @@
+export enum AppTab {
+  STUDY = 'study',
+  TASKS = 'tasks',
+  CIRCLES = 'circles',
+  PROGRESS = 'progress',
+}
+
 export enum TimerMode {
   FOCUS = 'focus',
   DEEP = 'deep',
@@ -16,6 +23,7 @@ export enum CloudMood {
 export interface TimerPreset {
   mode: TimerMode;
   label: string;
+  shortLabel: string;
   minutes: number;
   isBreak: boolean;
   description: string;
@@ -52,4 +60,11 @@ export interface DailyProgress {
   focusedMinutes: number;
   completedBlocks: number;
   streakDays: number;
+}
+
+export interface WeeklyHistoryRecord {
+  [dateKey: string]: {
+    focusedMinutes: number;
+    completedBlocks: number;
+  };
 }

@@ -21,32 +21,30 @@ export const CloudMascot: React.FC<CloudMascotProps> = ({
   const [isBlinking, setIsBlinking] = useState(false);
   const [isWiggling, setIsWiggling] = useState(false);
 
-  // Gentle periodic eye blink when eyes are open
   useEffect(() => {
     if (mood === CloudMood.BREAK || mood === CloudMood.CELEBRATE) {
       return;
     }
-    const interval = setInterval(() => {
+    const interval = window.setInterval(() => {
       setIsBlinking(true);
-      const timeout = setTimeout(() => setIsBlinking(false), 160);
-      return () => clearTimeout(timeout);
+      window.setTimeout(() => setIsBlinking(false), 160);
     }, 4200);
-    return () => clearInterval(interval);
+    return () => window.clearInterval(interval);
   }, [mood]);
 
   const handleClick = () => {
     if (!interactive) return;
     setIsWiggling(true);
-    setTimeout(() => setIsWiggling(false), 450);
+    window.setTimeout(() => setIsWiggling(false), 450);
     onPet?.();
   };
 
   const dimensions =
     size === 'sm'
-      ? 'w-14 h-12'
+      ? 'w-12 h-10'
       : size === 'md'
-        ? 'w-32 h-28'
-        : 'w-48 h-40 sm:w-52 sm:h-44';
+        ? 'w-32 h-26'
+        : 'w-40 h-34';
 
   const effectiveMood = isWiggling ? CloudMood.BLUSH : mood;
   const isClosedEyes =
@@ -63,7 +61,7 @@ export const CloudMascot: React.FC<CloudMascotProps> = ({
         <div
           role="status"
           aria-live="polite"
-          className="mb-2 px-3 py-1 bg-white border border-slate-200 rounded-xl shadow-xs text-xs font-medium text-slate-700 whitespace-nowrap transition-opacity duration-200"
+          className="mb-1.5 px-3 py-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xs text-xs font-medium text-slate-700 dark:text-slate-100 whitespace-nowrap transition-opacity duration-200"
         >
           {speechText}
         </div>
@@ -77,8 +75,10 @@ export const CloudMascot: React.FC<CloudMascotProps> = ({
               'aria-label': `${label}. Toca para animar a tu nube`,
             }
           : { 'aria-label': label })}
-        className={`relative inline-flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 rounded-3xl ${
-          interactive ? 'cursor-pointer transition-transform duration-200 hover:scale-[1.03] active:scale-[0.97]' : ''
+        className={`relative inline-flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 rounded-3xl ${
+          interactive
+            ? 'min-h-[44px] min-w-[44px] cursor-pointer transition-transform duration-200 hover:scale-[1.03] active:scale-[0.96]'
+            : ''
         }`}
       >
         <svg
@@ -90,7 +90,7 @@ export const CloudMascot: React.FC<CloudMascotProps> = ({
           }`}
         >
           {/* Soft ground shadow */}
-          <ellipse cx="110" cy="156" rx="64" ry="8" fill="#E2E8F0" opacity="0.65" />
+          <ellipse cx="110" cy="156" rx="64" ry="8" className="fill-slate-200 dark:fill-slate-800" opacity="0.65" />
 
           {/* Celebration stars */}
           {effectiveMood === CloudMood.CELEBRATE && (
@@ -111,7 +111,6 @@ export const CloudMascot: React.FC<CloudMascotProps> = ({
               strokeWidth="2.5"
               strokeLinejoin="round"
             />
-            {/* Soft inner sky-tint underbelly */}
             <path
               d="M44 134H162C178 134 191 122 193 107C186 119 172 126 156 126H52C37 126 26 118 23 107C25 122 33 134 44 134Z"
               fill="#EFF6FF"
@@ -157,13 +156,11 @@ export const CloudMascot: React.FC<CloudMascotProps> = ({
             <g stroke="#1E293B" strokeWidth="3" strokeLinecap="round">
               {effectiveMood === CloudMood.BREAK ? (
                 <>
-                  {/* Peaceful resting arcs */}
                   <path d="M77 83C80 87 86 87 89 83" />
                   <path d="M131 83C134 87 140 87 143 83" />
                 </>
               ) : (
                 <>
-                  {/* Happy ^ ^ eyes */}
                   <path d="M77 86C80 80 86 80 89 86" />
                   <path d="M131 86C134 80 140 80 143 86" />
                 </>
@@ -171,10 +168,8 @@ export const CloudMascot: React.FC<CloudMascotProps> = ({
             </g>
           ) : (
             <g>
-              {/* Left eye */}
               <circle cx="83" cy="83" r="5.5" fill="#1E293B" />
               <circle cx="81" cy="81" r="1.9" fill="#FFFFFF" />
-              {/* Right eye */}
               <circle cx="137" cy="83" r="5.5" fill="#1E293B" />
               <circle cx="135" cy="81" r="1.9" fill="#FFFFFF" />
             </g>
